@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!--<environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="com.mysql.jdbc.Driver" />
+                <property name="url" value="jdbc:mysql://localhost:3306/lc_add?useUnicode=true&amp;characterEncoding=UTF-8&amp;zeroDateTimeBehavior=convertToNull" />
+                <property name="username" value="root" />
+                <property name="password" value="" />
+            </dataSource>
+        </environment>
+    </environments>
+    <mappers>
+        <mapper resource="com/lc/dao/userdao-mapper.xml"/>
+    </mappers>-->
+    <settings>
+        <!-- 打印查询语句 -->
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+    <typeAliases>
+        <!-- 批量扫描设置别名,不指定则容器默认设置，如User>>user -->
+        <!--<package name="com.hanson.ssm.pojo"/>-->
+        <typeAlias alias="user" type="com.lc.User"></typeAlias>
+        <typeAlias alias="grade" type="com.lc.Grade"></typeAlias>
+    </typeAliases>
+</configuration>

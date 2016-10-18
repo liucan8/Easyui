@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>show 01</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" href="../js/jqui/easyui.css" />
+    <link rel="stylesheet" href="../js/jqui/icon.css" />
+    <script type="text/javascript" src="../js/jqui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jqui/easyui-lang-zh_CN.js"></script>
+    <script>
+
+        $(function(){
+            function BindRightAccordion() {
+                $("#RightAccordion").accordion({ //初始化accordion
+                    fillSpace: true,
+                    fit: true,
+                    border: false,
+                    animate: false
+                });
+//获取第一层初始目录
+                $.post("/Home/GetTreeByEasyui", { "id": "0" },
+                        function (data) {
+                            if (data == "0") {
+                                window.location.href = '/Login/Index';
+                            }
+                            $.each(data, function (i, e) {
+                                var id = e.id;
+                                $('#RightAccordion').accordion('add', {
+                                    title: e.text,
+                                    content: "<ul id='tree" + id + "' ></ul>",
+                                    selected: true,
+                                    iconCls: e.iconCls
+                                });
+                                $.parser.parse();
+//获取二级以下目录 含2级
+                                $.post("/Home/GetTreeByEasyui?id=" + id, function (data) {
+                                    $("#tree" + id).tree({
+                                        data: data,
+                                        onBeforeExpand: function (node, param) {
+                                            $("#tree" + id).tree('options').url = "/Home/GetTreeByEasyui?id=" + node.id;
+                                        },
+                                        onClick: function (node) {
+                                            if (node.state == 'closed') {
+                                                $(this).tree('expand', node.target);
+                                            } else if (node.state == 'open') {
+                                                $(this).tree('collapse', node.target);
+                                                var tabTitle = node.text;
+                                                var url = node.attributes;
+                                                var icon = node.iconCls;
+                                                addTab(tabTitle, url, icon);
+                                            }
+                                        }
+                                    });
+                                }, 'json');
+                            });
+                        }, "json");
+            }
+//选项卡
+            function addTab(subtitle, url, icon) {
+                var strHtml = '<iframe id="frmWorkArea" width="99.5%" height="99%" style="padding:1px;" frameborder="0" scrolling="yes" src="' + url + '"></iframe>';
+                if (!$('#tabs').tabs('exists', subtitle)) {
+                    $('#tabs').tabs('add', {
+                        title: subtitle,
+                        content: strHtml,
+                        iconCls: icon,
+                        closable: true,
+                        loadingMessage: '正在加载中......'
+                    });
+                } else {
+                    $('#tabs').tabs('select', subtitle);
+                }
+            }
+//刷新选项卡
+            function refreshTab() {
+                var index = $('#tabs').tabs('getTabIndex', $('#tabs').tabs('getSelected'));
+                if (index != -1) {
+                    var tab = $('#tabs').tabs('getTab', index);
+                    $('#tabs').tabs('update', {
+                        tab: tab,
+                        options: {
+                            selected: true
+                        }
+                    });
+                }
+            }
+//关闭选项卡
+            function closeTab() {
+                $('.tabs-inner span').each(function (i, n) {
+                    var t = $(n).text();
+                    if (t != '') {
+                        if (t != "我的主页") {
+                            $('#tabs').tabs('close', t);
+                        }
+                    }
+                });
+            }
+        });
+
+    </script>
+</head>
+<body>
+<div data-options="region:'west',split:true,title:'功能导航'" style="width: 180px; background-color: white;">
+    <div id="RightAccordion" class="easyui-accordion">
+    </div>
+</div>
+<div data-options="region:'center'">
+    <div id="tabs" class="easyui-tabs" fit="true" border="false" data-options="
+tools:[
+{iconCls : 'icon-arrow_refresh',text:'刷新',handler:refreshTab},
+{iconCls : 'icon-delete3',text:'关闭全部',handler:closeTab}
+]">
+        <div id="home" title="我的主页" data-options="iconCls:'icon-house',closable:false" style="padding:10px">
+            This is the Home content.
+        </div>
+    </div>
+</div>
+</body>
+</html>

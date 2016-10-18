@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="js/jquery/themes/icon.css" />
+    <script type="text/javascript" src="js/jquery/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/jquery/locale/easyui-lang-zh_CN.js"></script>
+</head>
+<body>
+    <form action="mvc/upload.do" method="post" enctype="multipart/form-data">
+        <input class="easyui-filebox" name="file" style="width: 260px;" data-options="buttonText:'选择...'" />
+        <!--<input type="file" name="file" /><br />-->
+        <input type="submit" value="upload" />
+    </form>
+</body>
+</html>

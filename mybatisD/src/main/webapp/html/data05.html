@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jq1.4/jquery.min.js"></script>
+    <link rel="stylesheet" href="../js/jq1.4/themes/default/easyui.css" />
+    <link rel="stylesheet" href="../js/jq1.4/themes/icon.css" />
+    <script type="text/javascript" src="../js/jq1.4/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jq1.4/locale/easyui-lang-zh_CN.js"></script>
+    <script>
+        $(function(){
+            $('#tt1').datagrid({
+                title:'users',
+                url:'mvc/showList.do',
+                width:400,
+                height:400,
+                columns:[[{field:'username',title:'NAME'},
+                    {field:'password',title:'PASS'},
+                    {field:'age',title:'AGE'}]]
+            });
+        });
+
+    </script>
+</head>
+<body>
+    <table id="tt1"></table>
+</body>
+</html>

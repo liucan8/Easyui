@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" href="../js/jqui/easyui.css" />
+    <link rel="stylesheet" href="../js/jqui/icon.css" />
+    <script type="text/javascript" src="../js/jqui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jqui/easyui-lang-zh_CN.js"></script>
+    <script>
+        $(function(){
+            $('#dd1').panel({
+                title:'mywin',
+                fit:true,
+                iconCls:'icon-man',
+                openAnimation:'slide',
+                tools:[{
+                    iconCls:'icon-add',
+                    handler:function(){
+                        $.messager.alert('add...','add...');
+                    }
+                },{
+                    iconCls:'icon-edit',
+                    handler:function(){
+                        $.messager.alert('edit...','edit...');
+                    }
+                }]
+            });
+            $('#mm').menu('show', {
+                left: 200,
+                top: 100
+            });
+        });
+    </script>
+</head>
+<body>
+    <div id="dd1">
+        <div id="la" class="easyui-layout" data-options="fit:true">
+            <div data-options="region:'west',split:true" style="width:200px" >
+                <div id="ad1" class="easyui-accordion">
+                    <div title="t1" data-options="iconCls:'icon-save'" style="overflow:auto;padding:10px;">
+                        <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">easyui</a>
+                    </div>
+                    <div title="t2">
+                        content
+                    </div>
+                    <div title="t3">
+                    </div>
+                </div>
+            </div>
+            <div data-options="region:'center'">
+                center...
+            </div>
+        </div>
+    </div>
+</body>
+</html>

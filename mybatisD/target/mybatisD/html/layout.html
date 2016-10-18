@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>lay</title>
+    <script type="text/javascript" src="../js/jquery-1.8.3.min.js"></script>
+    <link rel="stylesheet" href="../js/jqui/easyui.css" />
+    <link rel="stylesheet" href="../js/jqui/icon.css" />
+    <script type="text/javascript" src="../js/jqui/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/jqui/easyui-lang-zh_CN.js"></script>
+
+    <script>
+        $('#dd').tooltip({    position: 'right',
+            content: '<span style="color:#fff">This is the tooltip message.</span>',
+            onShow: function(){
+                $(this).tooltip('tip').css({
+                    backgroundColor: '#666',
+                    borderColor: '#666'
+                });
+            }});
+
+    </script>
+</head>
+<body>
+    <div id="p" class="easyui-panel" style="width:500px;height:200px;padding:10px;" title="panel" data-options="iconCls:'icon-save',collapsible:true">
+        content...
+    </div>
+
+    <input class="easyui-combobox" name="language"
+           data-options="
+            url:'mvc/checkUser.do',
+            valueField:'id',
+            textField:'text',
+            panelHeight:'auto',
+            onSelect:function(record){
+                alert(record.text)
+            }" />
+
+    <div id="p1" style="width:400px;"></div>
+    <a id="dd" href="javascript:void(0)">Click here</a>
+</body>
+</html>

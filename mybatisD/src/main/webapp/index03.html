@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>dialog</title>
+
+    <script type="text/javascript" src="js/jquery/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="js/jquery/themes/default/easyui.css" />
+    <link rel="stylesheet" type="text/css" href="js/jquery/themes/icon.css" />
+    <script type="text/javascript" src="js/jquery/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="js/jquery/locale/easyui-lang-zh_CN.js"></script>
+
+    <script>
+        $(function(){
+            $("#userOper").dialog( {
+                width : "400",
+                height : "300",
+                buttons : [ {
+                    text : "保存",
+                    iconCls : "icon-save",
+                    handler : function() {
+                        $("#userForm").form("submit", {
+                            url : url,
+                            onSubmit : function() {
+                                return $(this).form("validate");
+                            },
+                            success : function(result) {
+                                if (result == "succ") {
+                                    $("#userGrid").datagrid("reload");
+                                    $("#userOper").dialog("close");
+                                } else if(result == "fail") {
+                                    $.messager.alert("提示", "保存失败", "error");
+                                }
+                                else{
+                                    $.messager.alert("提示", "该用户名称已存在,请重新输入", "error");
+                                    $("#name").val(" ").focus();
+                                }
+                            }
+                        });
+                    }
+                }, {
+                    text : "取消",
+                    iconCls : "icon-cancel",
+                    handler : function() {
+                        $("#userOper").dialog("close");
+                    }
+                } ]
+            });
+        });
+    </script>
+</head>
+<body>
+<div id="userOper" style="padding-left:45px;padding-top:10px;">
+    <form id="userForm" method="post">
+        <table>
+            <tr>
+                <td>
+                    你的名字:
+                </td>
+                <td>
+                    <input id="name" name="name" class="easyui-validatebox"
+                           required="true" missingMessage="请填写你的名字" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    性别:
+                </td>
+                <td>
+                    <label>
+                        <input type="radio" id="boy" name="sex" value="1" />
+                        男
+                    </label>
+                    <label>
+                        <input type="radio" id="girls" name="sex" value="2" />
+                        女
+                    </label>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    手机号码:
+                </td>
+                <td>
+                    <input id="phone" name="phone" type="text" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    邮箱:
+                </td>
+                <td>
+                    <input id="email" name="email" class="easyui-validatebox"
+                           required="true" validType="email" missingMessage="请填写你的邮箱"
+                           invalidMessage="邮箱格式错误" />
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    备注:
+                </td>
+                <td>
+                    <textarea id="remark" name="remark" cols="23" rows="4"></textarea>
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+</body>
+</html>
